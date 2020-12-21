@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Liste des bougies!</h1>
+    {% for products in products %}
+        <div id="products">
+            <h3>{{ products.titre }}</h3>
+                <img src="{{ asset('upload/' ~ products.image) }}" id="imageBougie"/><br>
+                <h3>{{ products.prix}}€</h3><br>
+                <a href="{{path('panier_add', {'id': products.id})}}" class="btn btn-primary">
+                    Ajouter
+                </a>
+                <a href="{{path('bougies_show', {'id': products.id})}}" class="btn btn-primary">
+                    Voir le détail
+                </a>
+                {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{path('modif_produit', {'id': products.id})}}" class="btn btn-danger">
+                    Modifier
+                </a>
+                <a href="{{path('suppression_produit', {'id': products.id})}}" class="btn btn-danger" style="margin-top:2%;">
+                    Supprimer
+                </a>
+                {% endif %}
+        </div>
+
+    {% endfor %}
+
+{% endblock %}

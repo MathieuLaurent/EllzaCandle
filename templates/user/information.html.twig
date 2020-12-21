@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1 style="text-align:center; margin-top:5%;">Mes informations</h1>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+    {{ form_start(form)}}
+    {{form_row(form.email, {'attr':{'placeholder': 'entrez votre adresse email...'}})}}
+    {{form_row(form.adresse, {'label':'Adresse:','attr':{'placeholder': 'Entrez votre adresse'}})}}
+    {{form_row(form.codePostal, {'label':'Code postal:','attr':{'placeholder': 'ex:10250'}})}}
+    {{form_row(form.ville, {'label':'Ville:'})}}
+    {{form_row(form.tel, {'label':'Téléphone:','attr':{'placeholder': 'ex:06/06/06/06/06'}})}}
+    <button type="submit" class="btn btn-success" id="inscriptionbutton">
+        Modifier
+    </button>
+    {{form_end(form)}}
+
+{% endblock %}

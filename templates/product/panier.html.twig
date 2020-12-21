@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{% if not app.user %}
+    <h1>Veuillez vous connecter</h1>
+    <a href="{{path('security_login')}}"><h1> Se connecter </h1></a>
+{% else %}
+    <h1>Panier de {{app.user.username}}</h1>
+
+    {% if items | length > 0 %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Produits</th>
+                    <th>Prix</th>
+                    <th>Quantité</th>
+                    <th></th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td>{{item.product.titre}}</td>
+                        <td>{{item.product.prix}}€</td>
+                        <td>{{item.quantity}}</td>
+                        <td>
+                            <a href="{{ path('panier_add', {'id': item.product.id})}}" class="btn btn-success btn-sm">
+                               Ajouter
+                            </a>
+                            <a href="{{ path('panier_retirer', {'id': item.product.id})}}" class="btn btn-danger btn-sm">
+                               Retirer
+                            </a>
+                        </td>
+                        <td>{{item.product.prix * item.quantity}}€</td>
+                        <td>
+                            <a href="{{ path('panier_remove', {'id': item.product.id})}}" class="btn btn-danger btn-sm">
+                               supprimer
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" class="text-right">Total:</td>
+                    <td>{{ total }}€</td>
+                    <td> Paiement :</td>
+                </tr>
+            </tfoot>
+        
+        </table>
+        <a href="{{ path('validationPanier', {'id' : app.user.id})}}" class="btn btn-primary"> Valider votre panier</a>
+    {% else %}
+        <p style="color:white">Votre panier est vide!</p>
+    {% endif %}
+    
+{% endif %}
+
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

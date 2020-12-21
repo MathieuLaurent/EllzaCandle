@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block body %}
+    {% if not app.user %}
+        <h1>Veuillez vous connecter!</h1><hr>
+        <a href="{{path('security_login')}}"><h1> Se connecter </h1></a>
+    {% else %}
+    <h1>Liste des utilisateurs</h1>
+    <table class="table table-striped table-hover ">
+        <thead>
+            <th>ID</th>
+            <th>Email</th>
+            <td>Adresse</td>
+            <td>code postal</td>
+            <td>ville</td>
+            <td>télephone</td>
+            <th>Rôles</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            {# On boucle sur les utilisateurs #}
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.adresse }}</td>
+                    <td>{{ user.codePostal }}</td>
+                    <td>{{ user.ville }}</td>
+                    <td>{{ user.tel }}</td>
+                    <td>
+                        {# On boucle sur les rôles #}
+                        {% for role in user.roles %}
+                            {% if role == "ROLE_USER" %}
+                                Utilisateur
+                            {% elseif role == "ROLE_ADMIN" %}
+                                Administrateur
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td><a href="{{ path('admin_modifier_utilisateur', {'id': user.id}) }}">Modifier</a></td>
+                </tr>
+                
+            {% else %}
+                <p>Aucun utilisateur inscrit</p>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+{% endblock %}

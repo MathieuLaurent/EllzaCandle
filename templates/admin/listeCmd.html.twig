@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    <h1>Liste des commandes</h1>
+    {% if not app.user %}
+        <h1>Veuillez vous connecter!</h1><hr>
+        <a href="{{path('security_login')}}"><h1> Se connecter </h1></a>
+    {% else %}
+    <table class="table table-striped table-hover ">
+        <thead>
+            <th>ID</th>
+            <th>Nom d'utilisateur</th>
+            <th>Email</th>
+            <th>prix total</th>
+            <th></th>
+            <th></th>
+        </thead>
+        <tbody>
+           
+            {% for commande in commandes %}
+                <tr>
+                    <td>{{ commande.id }}</td>
+                    <td>{{ commande.username }}</td>
+                    <td>{{ commande.email }}</td>  
+                    <td>{{ commande.total }} €</td>
+                    <td><button class="btn btn-success"> valider </button></td>
+                    <td><a href="{{path('showCmd', {'id': commande.id })}}" class="btn btn-primary"> Voir détail </a></td>
+                </tr>
+            {% else %}
+                <p>Aucune commande enregistrée</p>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+
+{% endblock %}

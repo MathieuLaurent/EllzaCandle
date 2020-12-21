@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="content" id="slider">
+    <figure>
+        <img src="{{ asset('img/arthur.jpg') }}">
+        <img src="{{ asset('img/mulan.jpg') }}">
+    </figure>
+</div>
+
+<h1 style="margin-top:5%;">top vente</h1><br>
+
+    <section class="content">
+
+        <article class="hometopvente">
+            <h2>Article1</h2>
+            <div class="btn-group-vertical">
+                <img src="{{ asset('img/bougie-violette.jpg') }}" id="imgtopvente"><br>
+                <button type="button" class="btn btn-primary">Voir plus</button>
+            </div>
+        </article>
+
+        <article class="hometopvente">
+            <h2>Article2</h2>
+            <div class="btn-group-vertical">
+                <img src="{{ asset('img/bougie-violette.jpg') }}" id="imgtopvente"><br>
+                <button type="button" class="btn btn-primary">Voir plus</button>
+            </div>
+        </article>
+        <article class="hometopvente">
+            <h2>Article3</h2>
+            <div class="btn-group-vertical">
+                <img src="{{ asset('img/bougie-violette.jpg') }}" id="imgtopvente"><br>
+                <button type="button" class="btn btn-primary">Voir plus</button>
+            </div>
+        </article>
+
+    </section>
+    <div id="presentation">
+        <p>
+            Je vous présente les bougies d'EllzaCandle réalisées avec la passion de la cinématographie et une subtilité d'odeur agréable pour tous les goûts.
+            Elles ont été réfléchies et créées de manière à ce que chaque vapeur de bougie vous rappelle votre film, série ou encore Disney préféré!
+         </p>
+         <p>
+            Elles sont fabriquées à la cire naturelle de soja.
+         </p>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+<a href="{{path('bougies')}}"><-retourner a la liste</a>
+    <h1 style="margin-top:5%">{{product.titre}}</h1>
+    <div class="containerBougie">
+        <div class="showBougie">
+            <img src="{{ asset('upload/' ~ product.image) }}" id="imageBougie"/><br>
+            <p class="description"> {{product.commentaire}}</p>
+        </div>
+        <div class="prixBougie">
+            <div id="prixShow">
+                <h3 style="color:black;">{{product.prix}}€</h3>
+            </div>
+            <hr>
+            <div id="prixbutton">
+                <a href="{{path('panier_add', {'id': product.id})}}" class="btn btn-primary">
+                            Ajouter
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

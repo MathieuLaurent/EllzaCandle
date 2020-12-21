@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+        <link rel="stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
+        <script src="https://js.stripe.com/v3/"></script>
+        <link rel="stylesheet" href="{{ asset('css/styles.css')}}">
+        <meta name="viewport" content="width=device-width" content="initial-scale=1.0, user-scalable=yes" />
+        <title>{% block title %}EllzaCandle{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+    </head>
+        
+        <a href="/"><img src="{{asset('img/logo.png')}}" id="logo"></a>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark" style="padding-left:10%;background-image: url(../../img/fond.jpg);">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor02">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/" id="policedisney">Accueil
+                        <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('bougies')}}" id="policedisney">Bougies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('bougies-evenement')}}" id="policedisney">Bougies évenements</a>
+                    </li>
+                    {% if not app.user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('security_registration')}}" id="policedisney">Inscription</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('security_login')}}" id="policedisney">Connexion</a>
+                    </li>
+                    </ul>
+                    {% else %}
+                    </ul>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" id="policedisney">{{app.user.username}}</a>
+                            <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{path('panier')}}">Panier</a>
+                            <a class="dropdown-item" href="{{path('informations',{'id': app.user.id})}}">Mes informations</a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <a class="dropdown-item" href="{{path('admin')}}">Administration</a>
+                            {% endif %}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ path('security_logout')}}">Déconnexion</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item"><p id="usernamenav"> </p></li>
+                                <li class="nav-item"><a class="nav-link" href="" id="policedisney"></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    {% endif %}
+                <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+
+    <body>
+        <div id="main">
+        {% block body %}
+            
+        {% endblock %}
+    <footer>
+        <div class="footer">
+        <div class="containfooter">
+        <div class="colfooter">
+            <h1>EllzaCandle</h1>
+            <ul>
+            <li>Qui sommes nous?</li>
+            <li>Pourquoi des bougies?</li>
+            <li>Projets à venir</li>
+            </ul>
+        </div>
+        <div class="colfooter">
+            <h1>Produits</h1>
+            <ul>
+            <li>A propos</li>
+            <li>Fournisseurs</li>
+            </ul>
+        </div>  
+        <div class="colfooter">
+            <h1>Support</h1>
+            <ul>
+            <li>Contactez nous!</li>
+            </ul>
+        </div>
+        <div class="colfooter">
+            <h1>Différents liens</h1>
+            <ul>
+            <li><a href="/">Accueil</a></li>
+            <li><a href="{{ path('bougies')}}">Bougies</a></li>
+            <li><a href="{{ path('bougies-evenement')}}">Bougies évenements</a></li>
+            {% if not app.user %}
+            <li><a href="{{ path('security_registration')}}">Inscription</a></li>
+            <li><a href="{{ path('security_login')}}">Connexion</a></li>
+            {% else %}
+            <li><a href="{{path('informations',{'id': app.user.id})}}">Mes informations</a></li>
+            <li><a href="{{ path('security_logout')}}">Déconnexion</a></li>
+            {% endif %}
+            </ul>
+        </div>
+        <div class="colfooter social">
+            <h1>Social</h1>
+            <ul>
+            <li><a href="https://www.instagram.com/ellzafrost"/><img src="{{asset('img/insta.png')}}" width="32" style="width: 32px;"></a></li>
+            <li><img src="https://svgshare.com/i/5eA.svg" width="32" style="width: 32px;"></li>
+            <li><img src="https://svgshare.com/i/5f_.svg" width="32" style="width: 32px;"></li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+        </div>
+        </div>
+    </footer>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        
+        {% block javascripts %}
+        <script type="text/javascript">
+
+            var stripe = Stripe("pk_test_51HxwguL2rG2L8ViQL5MLgsU12A5qHITnYWEqAKyhaXZyVpFjbq2mLHORTpxw10Taet8t2hhOlAWMRIDgJ8D5i5vq009h4u0bnx");
+            //var stripe = Stripe("pk_live_51HxwguL2rG2L8ViQhYYY5HV7eduWgrFLMQMyiyplMDAg4HaPnWKkmI4K7XsDyTB2l4GbzwFejUH6Mt61H13VDZRp00Jlds1IO3");
+            var checkoutButton = document.getElementById("checkout-button");
+
+            checkoutButton.addEventListener('click', function() {
+                fetch("/create-checkout-session", {
+                method: "POST",
+                })
+                .then(function(response) {
+                return response.json();
+                })
+                .then(function(session) {
+                return stripe.redirectToCheckout({ sessionId: session.id });
+                })
+                .then(function(result) {
+                if (result.error) {
+                    alert(result.error.message);
+                }
+                })
+                .catch(function(error) {
+                console.error("Error:", error);
+                });
+            });
+            </script>
+        {% endblock %}  
+        </div>
+    </body>
+    
+</html>
