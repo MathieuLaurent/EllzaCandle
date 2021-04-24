@@ -2,11 +2,27 @@
 
 {% block body %}
 
-<div class="content" id="slider">
-    <figure>
-        <img src="{{ asset('img/arthur.jpg') }}">
-        <img src="{{ asset('img/mulan.jpg') }}">
-    </figure>
+
+<div class="slider">
+    <div class="slides">
+        <input type="radio" name="radio-btn" id="radio1">
+        <input type="radio" name="radio-btn" id="radio2">
+        <div class="slide first">
+            <img src="{{ asset('img/banniereMulan.jpg') }}">
+        </div>
+        <div class="slide">
+            <img src="{{ asset('img/banniereArthur.jpg') }}">
+        </div>
+        <div class="navigation-auto">
+            <div class="auto-btn1"></div>
+            <div class="auto-btn2"></div>
+        </div>
+
+    </div>
+    <div class="navigation-manual">
+        <label for="radio1" class="manual-btn"></label>
+        <label for="radio2" class="manual-btn"></label>
+    </div>
 </div>
 
 <h1 style="margin-top:5%;">top vente</h1><br>
@@ -14,25 +30,16 @@
     <section class="content">
 
         <article class="hometopvente">
-            <h2>Article1</h2>
+            <h2>Mulan</h2>
             <div class="btn-group-vertical">
-                <img src="{{ asset('img/bougie-violette.jpg') }}" id="imgtopvente"><br>
-                <button type="button" class="btn btn-primary">Voir plus</button>
+                <img src="{{ asset('upload/e6946c440b82c712c00db6e564a4f37e.jpg') }}" id="imgtopvente"><br>
             </div>
         </article>
 
         <article class="hometopvente">
-            <h2>Article2</h2>
+            <h2>Arthur</h2>
             <div class="btn-group-vertical">
-                <img src="{{ asset('img/bougie-violette.jpg') }}" id="imgtopvente"><br>
-                <button type="button" class="btn btn-primary">Voir plus</button>
-            </div>
-        </article>
-        <article class="hometopvente">
-            <h2>Article3</h2>
-            <div class="btn-group-vertical">
-                <img src="{{ asset('img/bougie-violette.jpg') }}" id="imgtopvente"><br>
-                <button type="button" class="btn btn-primary">Voir plus</button>
+                <img src="{{ asset('upload/54d8ac64c3c363e7b3f20fe185baa782.jpg') }}" id="imgtopvente"><br>
             </div>
         </article>
 
@@ -47,4 +54,18 @@
          </p>
     </div>
 
+{% endblock %}
+
+{% block javascripts %}
+
+<script type="text/javascript">
+            var counter = 1;
+            setInterval(function(){
+                document.getElementById('radio' + counter).checked = true;
+                counter++;
+                if(counter > 2){
+                    counter = 1;
+                }
+            }, 5000);
+</script>
 {% endblock %}

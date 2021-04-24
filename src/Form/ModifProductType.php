@@ -17,7 +17,8 @@ class ModifProductType extends AbstractType
         $builder
             ->add('titre')
             ->add('prix', MoneyType::class)
-            ->add('commentaire', TextareaType::class);
+            ->add('commentaire', TextareaType::class)
+            ->add('stock');
     }
 
     public function configureOptions(OptionsResolver $resolver)

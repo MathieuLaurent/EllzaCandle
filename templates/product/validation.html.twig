@@ -1,7 +1,51 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-
-        <button class="btn btn-primary" id="checkout-button"> Paiement </button>
-
+        {% if not app.user %}
+                <h1>Veuillez vous connecter</h1>
+                <a href="{{path('security_login')}}"><h1> Se connecter </h1></a>
+        {% else %}
+        <h3>Récapitulatif de la commande:</h3>
+                <table class="table">
+            <thead>
+                <tr>
+                    <th>Produits</th>
+                    <th>Prix</th>
+                    <th>Quantité</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td>{{item.product.titre}}</td>
+                        <td>{{item.product.prix}}€</td>
+                        <td>{{item.quantity}}</td>
+                        <td>{{item.product.prix * item.quantity}}€</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-right">Total:</td>
+                    <td>{{ total }}€</td>
+                </tr>
+            </tfoot>
+        </table>
+        
+        <div class="showCmd"><br>
+                INFORMATIONS PERSONNELLES:<br><hr><hr>
+                Username: {{ user.username }}<br><hr>
+                Nom: {{ user.nom }}<br><hr>
+                Prenom: {{ user.prenom }}<br><hr>
+                Email: {{ user.email }}<br><hr>
+                Adresse: {{ user.adresse }}<br><hr>
+                code postal: {{ user.codePostal }}<br><hr>
+                ville: {{ user.ville }}<br><hr>
+                télephone: {{ user.tel }}<br>
+        </div>
+        <br>
+        <span style="color:white; margin-left:25%;">Si vos informations sont incorrectes veuillez les modifier dans votre <a href="{{path('informations', {'id': user.id})}}"> espace informations </a></span>
+                <button class="btn btn-primary" id="checkout-button"> Paiement </button>
+        {% endif %}
 {% endblock %}

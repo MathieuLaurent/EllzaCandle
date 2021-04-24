@@ -2,6 +2,10 @@
 
 {% block body %}
 
+{% if not app.user %}
+    <h1>Veuillez vous connecter</h1>
+    <a href="{{path('security_login')}}"><h1> Se connecter </h1></a>
+{% else %}
 <h1 style="text-align:center; margin-top:5%;">Mes informations</h1>
 
         {% for message in app.flashes('success') %}
@@ -9,8 +13,10 @@
                 {{ message }}
             </div>
         {% endfor %}
-
+    <div style="width:50%; margin-left: 25%;">
     {{ form_start(form)}}
+    {{form_row(form.nom, {'label':'Nom','attr':{'placeholder': 'entrez votre nom...'}})}}
+    {{form_row(form.prenom, {'label':'Prénom','attr':{'placeholder': 'entrez votre prénom...'}})}}
     {{form_row(form.email, {'attr':{'placeholder': 'entrez votre adresse email...'}})}}
     {{form_row(form.adresse, {'label':'Adresse:','attr':{'placeholder': 'Entrez votre adresse'}})}}
     {{form_row(form.codePostal, {'label':'Code postal:','attr':{'placeholder': 'ex:10250'}})}}
@@ -20,5 +26,7 @@
         Modifier
     </button>
     {{form_end(form)}}
+    </div>
+{% endif %}
 
 {% endblock %}

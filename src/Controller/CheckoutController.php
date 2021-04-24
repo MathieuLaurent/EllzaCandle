@@ -30,12 +30,13 @@ class CheckoutController extends AbstractController
      */
 
 
-     public function validationPanier($id, Request $request,  panierService $panierService, EntityManagerInterface $manager, UsersRepository $user, CommandesRepository $commandes){
+     public function validationPanier($id, Request $request,  panierService $panierService, EntityManagerInterface $manager, UsersRepository $user, CommandesRepository $commandes, ProductsRepository $products){
 
       $panierWithData= $panierService->getFullCart();
       $total = $panierService->getTotal();
 
       $repository = $this->getDoctrine()->getRepository('App\Entity\Users');
+      $products = $this->getDoctrine()->getRepository('App\Entity\Products');
       $user = $repository->find($id);
 
       $commandes = new Commandes();
@@ -46,6 +47,8 @@ class CheckoutController extends AbstractController
         $commandes->setEmail($user->getEmail());
         $commandes->setUsername($user->getUsername());
         $commandes->setCreatedAt(new \DateTime);
+        $commandes->setPayment(false);
+        $commandes->setArchive(false);
         $manager->persist($commandes);
         $manager->flush();
 
@@ -59,10 +62,23 @@ class CheckoutController extends AbstractController
           $commandeQuantity[$i]->setNumCmd($commandes->getId());
           $manager->persist($commandeQuantity[$i]);
         }
+        for($i = 0; $i <count($panierWithData);$i++)
+        {
+          $products = $this->getDoctrine()->getRepository(Products::class)->findOneBy(['id' => $panierWithData[$i]['product']]);
+          $stock = $products->getStock();
+          $stock = $stock-$panierWithData[$i]['quantity'];
+          $newStock = $products->setStock($stock);
+          $manager->persist($newStock);
+        }
         $manager->flush();
 
 
-       return $this->render('product/validation.html.twig');
+       return $this->render('product/validation.html.twig', [
+          'user' => $user,
+          'items' =>$panierWithData,
+          'total' =>$total
+
+       ]);
     }
 
     /**
@@ -75,12 +91,12 @@ class CheckoutController extends AbstractController
 
       \Stripe\Stripe::setApiKey('sk_test_51HxwguL2rG2L8ViQ9C0Yy31w9UT25bx9vdJWUhi9ZGREfvlOiiYcNFRb9ctWSy3FBGEvjkmmrpaUOue3se2C4B4y00yMTUpCHb');
       //\Stripe\Stripe::setApiKey('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');
-        
+
       $total = $panierService->getTotal();
 
       $promotion_code = \Stripe\PromotionCode::create([
-        'coupon' => 'xM1h2cdl',
-      //    'coupon' => 'MhJzKO9a',
+       'coupon' => 'xM1h2cdl',
+       // 'coupon' => 'MhJzKO9a',
       ]);
 
       $sessionStripe = \Stripe\Checkout\Session::create([
@@ -107,6 +123,7 @@ class CheckoutController extends AbstractController
   * @Route("/checkout/success", name="success")
   */
     public function success(){
+
       return $this->render('checkout/success.html.twig', [
 
       ]);
@@ -122,8 +139,8 @@ class CheckoutController extends AbstractController
   }
 
   /**
-     * @Route("/panier/add/{id}", name="panier_add")
-     */
+  * @Route("/panier/add/{id}", name="panier_add")
+  */
 
     public function add($id, panierService $panierService){
 

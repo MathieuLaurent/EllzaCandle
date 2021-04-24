@@ -49,11 +49,15 @@ class Products
      */
     private $commandes;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $stock;
+
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -61,6 +65,11 @@ class Products
     }
 
     public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function __toString()
     {
         return $this->titre;
     }
@@ -146,6 +155,18 @@ class Products
         if ($this->commandes->removeElement($commande)) {
             $commande->removeProduct($this);
         }
+
+        return $this;
+    }
+
+    public function getStock(): ?int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(int $stock): self
+    {
+        $this->stock = $stock;
 
         return $this;
     }

@@ -17,9 +17,13 @@
             </div>
             <hr>
             <div id="prixbutton">
+                {% if product.stock == 0 %}
+                <button class="btn btn-danger"> sold out </button>
+                {% else %}
                 <a href="{{path('panier_add', {'id': product.id})}}" class="btn btn-primary">
                             Ajouter
                 </a>
+                {% endif %}
             </div>
         </div>
     </div>

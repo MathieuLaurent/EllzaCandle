@@ -49,6 +49,16 @@ class Commandes
      */
     private $cmdId;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $payment;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $archive;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -139,6 +149,30 @@ class Commandes
     public function setCmdId(?CommandeQuantity $cmdId): self
     {
         $this->cmdId = $cmdId;
+
+        return $this;
+    }
+
+    public function getPayment(): ?bool
+    {
+        return $this->payment;
+    }
+
+    public function setPayment(bool $payment): self
+    {
+        $this->payment = $payment;
+
+        return $this;
+    }
+
+    public function getArchive(): ?bool
+    {
+        return $this->archive;
+    }
+
+    public function setArchive(bool $archive): self
+    {
+        $this->archive = $archive;
 
         return $this;
     }

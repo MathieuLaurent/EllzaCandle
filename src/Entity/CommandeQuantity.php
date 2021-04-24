@@ -13,6 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class CommandeQuantity
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

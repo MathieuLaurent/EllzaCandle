@@ -18,7 +18,8 @@ class RegistrationTypeProduct extends AbstractType
             ->add('titre')
             ->add('image', FileType::class)
             ->add('prix', MoneyType::class)
-            ->add('commentaire', TextareaType::class);
+            ->add('commentaire', TextareaType::class)
+            ->add('stock');
     }
 
     public function configureOptions(OptionsResolver $resolver)

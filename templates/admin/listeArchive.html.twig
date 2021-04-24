@@ -2,7 +2,7 @@
 
 {% block body %}
 
-    <h1>Liste des commandes</h1>
+    <h1>Liste des archives</h1>
     {% if not app.user %}
         <h1>Veuillez vous connecter!</h1><hr>
         <a href="{{path('security_login')}}"><h1> Se connecter </h1></a>
@@ -16,25 +16,24 @@
             <th>prix total</th>
             <th>Date cmd</th>
             <th></th>
-            <th></th>
         </thead>
         <tbody>
            
             {% for commande in commandes %}
-                {% if commande.archive == false %}
+                {% if commande.archive == true %}
                     <tr>
                         <td>{{ commande.id }}</td>
                         <td>{{ commande.username }}</td>
                         <td>{{ commande.email }}</td>
                         <td>{{ commande.total }} €</td>
                         <td>{{ commande.createdAt|date('d/m/Y  h:m:s') }}</td>
+                        <td><a href="{{path('suppArchive', {'id': commande.id })}}" class="btn btn-danger"> Supprimer </a></td>
                         <td><a href="{{path('showCmd', {'id': commande.id })}}" class="btn btn-primary"> Voir détail </a></td>
-                        <td><button class="btn btn-success"><a href="{{path('archiveCmd', {'id': commande.id})}}" style="color:white;"> Archiver </a></button></td>
                     </tr>
                 {% else %}
                 {% endif %}
             {% else %}
-                <p>Aucune commande enregistrée</p>
+                <p>Aucune commande archivée</p>
             {% endfor %}
         </tbody>
     </table>

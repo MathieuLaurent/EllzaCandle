@@ -37,8 +37,11 @@ class panierService{
           if(!empty($quantity)){
               unset($panier[$id]);
           }
+          elseif($panier[$id] == 1){
+             unset($panier[$id]);
+          }
           else{
-            $panier[$id]--;   
+            $panier[$id]--;  
           }
       }
       else{
@@ -64,7 +67,7 @@ class panierService{
         foreach($panier as $id=>$quantity){
         $panierWithData[] = [
             'product' => $this->productsRepository->find($id),
-            'quantity' => $quantity
+            'quantity' => $quantity,
         ];
       }
       return $panierWithData;

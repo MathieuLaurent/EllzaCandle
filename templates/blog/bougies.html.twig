@@ -7,19 +7,27 @@
             <h3>{{ products.titre }}</h3>
                 <img src="{{ asset('upload/' ~ products.image) }}" id="imageBougie"/><br>
                 <h3>{{ products.prix}}€</h3><br>
-                <a href="{{path('panier_add', {'id': products.id})}}" class="btn btn-primary">
-                    Ajouter
-                </a>
-                <a href="{{path('bougies_show', {'id': products.id})}}" class="btn btn-primary">
+                {% if products.stock <= 0 %}    
+                <button class="btn btn-danger"> sold out </button>
+                <a href="{{path('bougies_show', {'id': products.id})}}" class="btn btn-primary" style="margin-top:4%;">
                     Voir le détail
                 </a>
+                {% else %}
+                <a href="{{path('panier_add', {'id': products.id})}}" class="btn btn-primary" style="margin-top:4%;">
+                    Ajouter
+                </a>
+                <a href="{{path('bougies_show', {'id': products.id})}}" class="btn btn-primary" style="margin-top:4%;">
+                    Voir le détail
+                </a>
+                {% endif %}
                 {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{path('modif_produit', {'id': products.id})}}" class="btn btn-danger">
+                <a href="{{path('modif_produit', {'id': products.id})}}" class="btn btn-danger" style="margin-top:4%;">
                     Modifier
                 </a>
-                <a href="{{path('suppression_produit', {'id': products.id})}}" class="btn btn-danger" style="margin-top:2%;">
+                <a href="{{path('suppression_produit', {'id': products.id})}}" class="btn btn-danger" style="margin-top:4%;">
                     Supprimer
                 </a>
+                stock:{{products.stock}}
                 {% endif %}
         </div>
 

@@ -2,7 +2,13 @@
 
 {% block body %}
 
-    <h3>Détail de la commande numéro</h3>
-        {{dump(commande)}}
-        {{dump(product)}}
+    <h3>Détail de la commande numéro {{numCmde}}</h3>
+
+    <div class="showCmd">
+    {% for commandes in commande %}
+        {{commandes.produit}} x
+        {{commandes.quantity}}
+    <hr>
+    {% endfor %}
+    </div>
 {% endblock %}

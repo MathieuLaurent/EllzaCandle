@@ -27,6 +27,7 @@ body{
     margin:0 auto;
     position:relative; 
 }
+
 .containerBougie{
   display: inline-block;
   width: 100%;
@@ -206,6 +207,7 @@ td, th{
   display:inline-block;
   margin-bottom: 5%;
   margin-top:5%;
+  margin-left: 10%;
 }
 
 #affichagebougies{
@@ -223,53 +225,109 @@ td, th{
   width: 275px !important;
 }
 
+.showCmd{
+  color:white;
+  text-align: left;
+  width:40%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  margin-left: 30%;
+}
 
+#checkout-button{
+  margin-left: 47%;
+}
 
-div#slider { 
-    width: 100%;
-    max-width: 1500px;
-    border-radius: 50px;
+.slider{
+  width: 100%;
+  max-width: 1500px;
+  border-radius: 50px;
+  overflow: hidden;
 }
-div#slider figure {
-    position: relative; 
-    width: 200%;
-    margin: 0;
-    padding: 0;
-    font-size: 0;
-    text-align: left;
+
+.slides{
+  width: 200%;
+  height: auto;
+  display: flex;
 }
-div#slider figure img { 
-    width: 50%; 
-    height: auto; 
-    float: left; 
+
+.slides input{
+  display: none;
 }
-div#slider { 
-    width: 100%; 
-    max-width: 1500px; 
-    overflow: hidden 
+
+.slide{
+  width: 50%;
+  height: auto;
+  transition: 2s;
 }
-@keyframes slidy {
-    0% { right: 0%; }
-    10% { right: 0%; }
-    50% { right: 100%; }
-    60% { right: 100%; }
-    100% { right: 0%; }
+
+.slide img{
+  width: 100%;
+  height: auto;
 }
-div#slider figure {
-    position: relative;
-    width: 200%;
-    margin: 0;
-    padding: 0;
-    font-size: 0;
-    right: 0;
-    animation: 30s slidy infinite;
-  }
+
+.navigation-manual{
+  position: absolute;
+  width: 100%;
+  margin-top:-20px;
+  display: flex;
+  justify-content: center ;
+}
+
+.manual-btn{
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 10px;
+  cursor:pointer;
+  transition: 1s;
+}
+
+.manual-btn:not(:last-child){
+  margin-right: 10px;
+}
+
+.manual-btn:hover{
+  background-color: slateblue;
+}
+
+#radio1:checked ~ .first{
+  margin-left: 0;
+}
+
+#radio2:checked ~ .first{
+  margin-left: -50%;
+}
+
+.navigation-auto{
+  position: absolute;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 460px;
+}
+
+.navigation-auto div{
+  display: none;
+}
+
+.navigation-auto div:not(:last-child){
+  margin-right: 10px;
+}
+
+#radio1:checked ~ .navigation-auto .auto-btn1{
+  background-color:slateblue;
+}
+
+#radio2:checked ~ .navigation-auto .auto-btn2{
+  background-color: slateblue;
+}
 
 #imgtopvente{
-    width: 275px;
+    width: 230px;
     height: 200px;
     box-shadow: black 5px 5px 5px;
     border-radius: 10px;
+    margin-bottom: 20px;
 }
 nav{
     margin-top: 2%;

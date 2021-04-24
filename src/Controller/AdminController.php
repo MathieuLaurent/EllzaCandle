@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\CommandeQuantity;
+use App\Entity\Commandes;
 use App\Entity\Users;
 use App\Entity\Products;
 use App\Form\EditUserType;
@@ -42,16 +44,52 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("admin/listeCmd/{id}", name="archiveCmd")
+     */
+
+     public function archiveCmd(CommandesRepository $commandesRepository, $id, EntityManagerInterface $manager){
+
+        $commandesRepository= $this->getDoctrine()->getRepository('App\Entity\Commandes')->find($id);
+        $commandesRepository->setArchive(true);
+        $manager->persist($commandesRepository);
+        $manager->flush();
+
+        return $this->redirectToRoute('listeCmd');
+     }
+
+     /**
+      * @Route("admin/listeArchive", name="listeArchive")
+      */
+
+     public function listeArchive(CommandesRepository $commandes){
+
+        return $this->render('admin/listeArchive.html.twig', [
+            'commandes' => $commandes->findAll(),
+        ]);
+     }
+
+     /**
+      * @Route("admin/listeArchive/{id}", name="suppArchive")
+      */
+
+      public function suppArchive(Commandes $commandes){
+
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($commandes);
+        $entityManager->flush();
+   
+        return $this->redirectToRoute('listeArchive');
+      }
+
+    /**
      * @Route("admin/showCmd/{id}", name="showCmd")
      */
-    public function showCmd($id, CommandesRepository $commandes, ProductsRepository $products){
-
-        $commande = $commandes->findAll($id);
-        $product = $products->findAll($id);
-
-        return $this->render('admin/showCmd.html.twig', [
-            'commande' => $commande,
-            'product' =>$product,
+    public function showCmd($id, CommandeQuantityRepository $commandeQuantity, CommandesRepository $commandes, UsersRepository $user ){
+        
+        return $this->render('admin/showCmd.html.twig',[
+            'commande' => $commandeQuantity->findBy(['numCmd' => $id]),
+            'numCmde' => $id
         ]);
     }
 
