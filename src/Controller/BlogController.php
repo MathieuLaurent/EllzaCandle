@@ -53,6 +53,13 @@ class BlogController extends AbstractController
     public function bougiesEvenement(){
         return $this->render('blog/bougiesevenement.html.twig');
     }
+
+    /**
+     * @Route("/fournisseur", name="fournisseur")
+     */
     
+     public function fournisseur(){
+         return $this->render('blog/fournisseur.html.twig');
+     }
 }
 
