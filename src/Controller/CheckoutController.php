@@ -90,7 +90,6 @@ class CheckoutController extends AbstractController
       header('Content-Type: application/json');
 
       \Stripe\Stripe::setApiKey('sk_test_51HxwguL2rG2L8ViQ9C0Yy31w9UT25bx9vdJWUhi9ZGREfvlOiiYcNFRb9ctWSy3FBGEvjkmmrpaUOue3se2C4B4y00yMTUpCHb');
-      //\Stripe\Stripe::setApiKey('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');
 
       $total = $panierService->getTotal();
 
